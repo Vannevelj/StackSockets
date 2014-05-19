@@ -5,6 +5,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Library.Utilities;
 using Newtonsoft.Json;
 
 namespace Library
@@ -29,7 +30,7 @@ namespace Library
             }
 
             var request = Encoding.UTF8.GetBytes("155-questions-active");
-
+             
             await socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true, CancellationToken.None);
 
             await Receive();
@@ -51,7 +52,7 @@ namespace Library
                     var result = Encoding.UTF8.GetString(buffer);
                     result = MakeJsonCapable(result);
 
-                    OnSocketReceive.Invoke(this, new SocketEventArgs { Response = JsonConvert.DeserializeObject<Response>(result)});
+                    OnSocketReceive.Invoke(this, new SocketEventArgs { Response = JsonConvert.DeserializeObject<Response>(result, new EpochTimeConverter()) });
                     buffer = new byte[1024];
                 }
             }

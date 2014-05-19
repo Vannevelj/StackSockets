@@ -10,7 +10,6 @@ namespace StackSockets
 {
     class Program
     {
-        private static System.IO.StreamWriter file = new System.IO.StreamWriter("c:\\test.txt", true);
         static void Main(string[] args)
         {
             var socket = new StackSocket("wss://qa.sockets.stackexchange.com");
@@ -18,14 +17,14 @@ namespace StackSockets
             socket.Connect();
 
             Console.ReadKey();
-            file.Close();
         }
 
         private static void OnDataReceived(object sender, SocketEventArgs e)
-        { 
-            Console.WriteLine(e.Response);
-
-            file.WriteLine(e.Response);
+        {
+            Console.WriteLine(string.Format("{0} - {1}", "Title", e.Response.Data.TitleEncodedFancy));
+            Console.WriteLine(string.Format("{0} - {1}", "Tags", string.Join(", ", e.Response.Data.Tags)));
+            Console.WriteLine(string.Format("{0} - {1}", "Last activity", e.Response.Data.LastActivityDate));
+            Console.WriteLine();
         }
     }
 }
