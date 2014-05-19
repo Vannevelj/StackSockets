@@ -5,6 +5,7 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Library
 {
@@ -20,7 +21,7 @@ namespace Library
             uri = new Uri(url);
         }
 
-        public async Task Connect()
+        public async void Connect()
         {
             if (socket.State != WebSocketState.Open && socket.State != WebSocketState.Connecting)
             {
@@ -48,15 +49,29 @@ namespace Library
                 } else
                 {
                     var result = Encoding.UTF8.GetString(buffer);
+                    result = MakeJsonCapable(result);
 
-                    OnSocketReceive.Invoke(this, new SocketEventArgs { Response = result });
+                    OnSocketReceive.Invoke(this, new SocketEventArgs { Response = JsonConvert.DeserializeObject<Response>(result)});
+                    buffer = new byte[1024];
                 }
             }
+        }
+
+        private string MakeJsonCapable(string input)
+        {
+            input = input.Trim();
+            input = input.TrimStart(new[] { '"' });
+            input = input.Replace("data\":\"", "data\":");
+            input = input.Remove(input.LastIndexOf("\""));
+            input += "}";
+            input = input.Replace("\\", string.Empty);
+
+            return input;
         }
     }
 
     public class SocketEventArgs : EventArgs
     {
-        public string Response { get; set; }
+        public Response Response { get; set; }
     }
 }
