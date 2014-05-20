@@ -56,6 +56,7 @@
     <Compile Include="StackSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\EpochTimeConverter.cs" />
+    <Compile Include="Utilities\UriConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

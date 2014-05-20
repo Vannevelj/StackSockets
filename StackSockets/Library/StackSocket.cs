@@ -18,27 +18,27 @@ namespace Library
             Mapper.CreateMap<Outer, Response>();
         }
 
-        private readonly ClientWebSocket socket = new ClientWebSocket();
-        private readonly Uri uri;
+        private readonly ClientWebSocket _socket = new ClientWebSocket();
+        private readonly Uri _uri;
 
         public event EventHandler<SocketEventArgs> OnSocketReceive;
 
         public StackSocket(string url)
         {
-            uri = new Uri(url);
+            _uri = new Uri(url);
         }
 
         public async void Connect()
         {
-            if (socket.State != WebSocketState.Open && socket.State != WebSocketState.Connecting)
+            if (_socket.State != WebSocketState.Open && _socket.State != WebSocketState.Connecting)
             {
-                await socket.ConnectAsync(uri, CancellationToken.None);
+                await _socket.ConnectAsync(_uri, CancellationToken.None);
             }
 
             var request = Encoding.UTF8.GetBytes("155-questions-active");
 
             await
-                socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true,
+                _socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true,
                     CancellationToken.None);
 
             await Receive();
@@ -48,14 +48,14 @@ namespace Library
         {
             var buffer = new byte[1024];
 
-            while (socket.State == WebSocketState.Open)
+            while (_socket.State == WebSocketState.Open)
             {
-                var response = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                var response = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
 
                 if (response.MessageType == WebSocketMessageType.Close)
                 {
                     await
-                        socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close response received",
+                        _socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close response received",
                             CancellationToken.None);
                 }
                 else

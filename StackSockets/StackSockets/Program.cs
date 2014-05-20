@@ -20,7 +20,7 @@ namespace StackSockets
             Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", e.Response.Tags));
             Console.WriteLine("{0} - {1}", "Last activity", e.Response.LastActivityDate);
             Console.WriteLine("{0}", e.Response.ApiSiteParameter);
-            Console.WriteLine(e.Response.BodySummary);
+            Console.WriteLine(e.Response.QuestionUrl);
             Console.WriteLine();
         }
     }

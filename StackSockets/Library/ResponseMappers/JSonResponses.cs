@@ -36,10 +36,12 @@ namespace Library.ResponseMappers
         public DateTime LastActivityDate { get; set; }
 
         [JsonProperty("url")]
-        public string QuestionUrl { get; set; }
+        [JsonConverter(typeof (UriConverter))]
+        public Uri QuestionUrl { get; set; }
 
         [JsonProperty("ownerUrl")]
-        public string OwnerUrl { get; set; }
+        [JsonConverter(typeof (UriConverter))]
+        public Uri OwnerUrl { get; set; }
 
         [JsonProperty("ownerDisplayName")]
         public string OwnerDisplayName { get; set; }

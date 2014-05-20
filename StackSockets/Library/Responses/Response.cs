@@ -23,9 +23,9 @@ namespace Library.Responses
         /// <returns></returns>
         public DateTime LastActivityDate { get; set; }
 
-        public string QuestionUrl { get; set; }
+        public Uri QuestionUrl { get; set; }
 
-        public string OwnerUrl { get; set; }
+        public Uri OwnerUrl { get; set; }
 
         public string OwnerDisplayName { get; set; }
 
