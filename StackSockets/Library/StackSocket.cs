@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Library.Utilities;
+using AutoMapper;
+using Library.ResponseMappers;
+using Library.Responses;
 using Newtonsoft.Json;
 
 namespace Library
 {
     public class StackSocket
     {
-        ClientWebSocket socket = new ClientWebSocket();
-        private Uri uri;
+        static StackSocket()
+        {
+            Mapper.CreateMap<Inner, Response>();
+            Mapper.CreateMap<Outer, Response>();
+        }
+
+        private readonly ClientWebSocket socket = new ClientWebSocket();
+        private readonly Uri uri;
 
         public event EventHandler<SocketEventArgs> OnSocketReceive;
 
@@ -30,8 +36,10 @@ namespace Library
             }
 
             var request = Encoding.UTF8.GetBytes("155-questions-active");
-             
-            await socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true, CancellationToken.None);
+
+            await
+                socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true,
+                    CancellationToken.None);
 
             await Receive();
         }
@@ -46,28 +54,23 @@ namespace Library
 
                 if (response.MessageType == WebSocketMessageType.Close)
                 {
-                    await socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close response received", CancellationToken.None);
-                } else
+                    await
+                        socket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Close response received",
+                            CancellationToken.None);
+                }
+                else
                 {
                     var result = Encoding.UTF8.GetString(buffer);
-                    result = MakeJsonCapable(result);
+                    var outer = JsonConvert.DeserializeObject<Outer>(result);
+                    var inner = JsonConvert.DeserializeObject<Inner>(outer.Data);
 
-                    OnSocketReceive.Invoke(this, new SocketEventArgs { Response = JsonConvert.DeserializeObject<Response>(result, new EpochTimeConverter()) });
+                    var resp = Mapper.Map<Inner, Response>(inner);
+                    resp = Mapper.Map(outer, resp);
+
+                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = resp});
                     buffer = new byte[1024];
                 }
             }
-        }
-
-        private string MakeJsonCapable(string input)
-        {
-            input = input.Trim();
-            input = input.TrimStart(new[] { '"' });
-            input = input.Replace("data\":\"", "data\":");
-            input = input.Remove(input.LastIndexOf("\""));
-            input += "}";
-            input = input.Replace("\\", string.Empty);
-
-            return input;
         }
     }
 

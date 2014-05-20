@@ -1,27 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Library.Utilities;
 using Newtonsoft.Json;
 
-namespace Library
+namespace Library.ResponseMappers
 {
-    public class Response
+    internal class Outer
     {
         [JsonProperty("action")]
         public string Action { get; set; }
 
         [JsonProperty("data")]
-        public Data Data { get; set; }
-
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(this);
-        }
+        public string Data { get; set; }
     }
 
-    public class Data
+    internal class Inner
     {
         [JsonProperty("siteBaseHostAddress")]
         public string SiteBaseHostAddress { get; set; }
@@ -38,11 +31,8 @@ namespace Library
         [JsonProperty("tags")]
         public IEnumerable<string> Tags { get; set; }
 
-        /// <summary>
-        /// Last moment of activity expressed in GMT.
-        /// </summary>
-        /// <returns></returns>
         [JsonProperty("lastActivityDate")]
+        [JsonConverter(typeof (EpochTimeConverter))]
         public DateTime LastActivityDate { get; set; }
 
         [JsonProperty("url")]

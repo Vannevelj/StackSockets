@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Library.Utilities
@@ -11,10 +7,11 @@ namespace Library.Utilities
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(DateTime);
+            return objectType == typeof (DateTime);
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
             long timestamp;
             long.TryParse(reader.Value.ToString(), out timestamp);

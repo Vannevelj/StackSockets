@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library;
-using Newtonsoft.Json;
 
 namespace StackSockets
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var socket = new StackSocket("wss://qa.sockets.stackexchange.com");
             socket.OnSocketReceive += OnDataReceived;
@@ -21,9 +16,11 @@ namespace StackSockets
 
         private static void OnDataReceived(object sender, SocketEventArgs e)
         {
-            Console.WriteLine(string.Format("{0} - {1}", "Title", e.Response.Data.TitleEncodedFancy));
-            Console.WriteLine(string.Format("{0} - {1}", "Tags", string.Join(", ", e.Response.Data.Tags)));
-            Console.WriteLine(string.Format("{0} - {1}", "Last activity", e.Response.Data.LastActivityDate));
+            Console.WriteLine("{0} - {1}", "Title", e.Response.TitleEncodedFancy);
+            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", e.Response.Tags));
+            Console.WriteLine("{0} - {1}", "Last activity", e.Response.LastActivityDate);
+            Console.WriteLine("{0}", e.Response.ApiSiteParameter);
+            Console.WriteLine(e.Response.BodySummary);
             Console.WriteLine();
         }
     }
