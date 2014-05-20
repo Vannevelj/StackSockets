@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace Library
 {
-    public sealed class StackSocket
+    public sealed class StackSocket : IDisposable
     {
         private readonly ClientWebSocket _socket = new ClientWebSocket();
         private readonly Uri _uri;
@@ -53,12 +53,17 @@ namespace Library
                 else
                 {
                     var result = Encoding.UTF8.GetString(buffer);
-                    var outer = JsonConvert.DeserializeObject<Response>(result);
+                    var responseObject = JsonConvert.DeserializeObject<Response>(result);
 
-                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = outer});
+                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = responseObject});
                     buffer = new byte[1024];
                 }
             }
+        }
+
+        public void Dispose()
+        {
+            _socket.Dispose();
         }
     }
 
