@@ -1,34 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.Utilities;
+using Newtonsoft.Json;
 
 namespace Library.Responses
 {
-    public class Response
+    public sealed class Response
     {
-        public string Action { get; set; }
+        [JsonProperty("action")]
+        public string Action { get; internal set; }
 
-        public string SiteBaseHostAddress { get; set; }
+        [JsonProperty("data")]
+        [JsonConverter(typeof (DataConverter))]
+        public Data Data { get; internal set; }
+    }
 
-        public string Id { get; set; }
+    public sealed class Data
+    {
+        [JsonProperty("siteBaseHostAddress")]
+        public string SiteBaseHostAddress { get; internal set; }
 
-        public string TitleEncodedFancy { get; set; }
+        [JsonProperty("id")]
+        public string Id { get; internal set; }
 
-        public string BodySummary { get; set; }
+        [JsonProperty("titleEncodedFancy")]
+        public string TitleEncodedFancy { get; internal set; }
 
-        public IEnumerable<string> Tags { get; set; }
+        [JsonProperty("bodySummary")]
+        public string BodySummary { get; internal set; }
 
-        /// <summary>
-        ///     Last moment of activity expressed in GMT.
-        /// </summary>
-        /// <returns></returns>
-        public DateTime LastActivityDate { get; set; }
+        [JsonProperty("tags")]
+        public IEnumerable<string> Tags { get; internal set; }
 
-        public Uri QuestionUrl { get; set; }
+        [JsonProperty("lastActivityDate")]
+        [JsonConverter(typeof (EpochTimeConverter))]
+        public DateTime LastActivityDate { get; internal set; }
 
-        public Uri OwnerUrl { get; set; }
+        [JsonProperty("url")]
+        [JsonConverter(typeof (UriConverter))]
+        public Uri QuestionUrl { get; internal set; }
 
-        public string OwnerDisplayName { get; set; }
+        [JsonProperty("ownerUrl")]
+        [JsonConverter(typeof (UriConverter))]
+        public Uri OwnerUrl { get; internal set; }
 
-        public string ApiSiteParameter { get; set; }
+        [JsonProperty("ownerDisplayName")]
+        public string OwnerDisplayName { get; internal set; }
+
+        [JsonProperty("apiSiteParameter")]
+        public string ApiSiteParameter { get; internal set; }
     }
 }

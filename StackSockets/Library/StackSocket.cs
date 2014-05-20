@@ -3,21 +3,13 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AutoMapper;
-using Library.ResponseMappers;
 using Library.Responses;
 using Newtonsoft.Json;
 
 namespace Library
 {
-    public class StackSocket
+    public sealed class StackSocket
     {
-        static StackSocket()
-        {
-            Mapper.CreateMap<Inner, Response>();
-            Mapper.CreateMap<Outer, Response>();
-        }
-
         private readonly ClientWebSocket _socket = new ClientWebSocket();
         private readonly Uri _uri;
 
@@ -61,13 +53,9 @@ namespace Library
                 else
                 {
                     var result = Encoding.UTF8.GetString(buffer);
-                    var outer = JsonConvert.DeserializeObject<Outer>(result);
-                    var inner = JsonConvert.DeserializeObject<Inner>(outer.Data);
+                    var outer = JsonConvert.DeserializeObject<Response>(result);
 
-                    var resp = Mapper.Map<Inner, Response>(inner);
-                    resp = Mapper.Map(outer, resp);
-
-                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = resp});
+                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = outer});
                     buffer = new byte[1024];
                 }
             }

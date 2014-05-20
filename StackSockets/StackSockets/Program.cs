@@ -16,11 +16,11 @@ namespace StackSockets
 
         private static void OnDataReceived(object sender, SocketEventArgs e)
         {
-            Console.WriteLine("{0} - {1}", "Title", e.Response.TitleEncodedFancy);
-            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", e.Response.Tags));
-            Console.WriteLine("{0} - {1}", "Last activity", e.Response.LastActivityDate);
-            Console.WriteLine("{0}", e.Response.ApiSiteParameter);
-            Console.WriteLine(e.Response.QuestionUrl);
+            Console.WriteLine("{0} - {1}", "Title", e.Response.Data.TitleEncodedFancy);
+            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", e.Response.Data.Tags));
+            Console.WriteLine("{0} - {1}", "Last activity", e.Response.Data.LastActivityDate);
+            Console.WriteLine("{0}", e.Response.Data.ApiSiteParameter);
+            Console.WriteLine(e.Response.Data.QuestionUrl);
             Console.WriteLine();
         }
     }

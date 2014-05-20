@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Library.Utilities
 {
-    internal class EpochTimeConverter : JsonConverter
+    internal sealed class EpochTimeConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {

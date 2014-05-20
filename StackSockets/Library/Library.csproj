@@ -51,10 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ResponseMappers\JSonResponses.cs" />
     <Compile Include="Responses\Response.cs" />
     <Compile Include="StackSocket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\DataConverter.cs" />
     <Compile Include="Utilities\EpochTimeConverter.cs" />
     <Compile Include="Utilities\UriConverter.cs" />
   </ItemGroup>

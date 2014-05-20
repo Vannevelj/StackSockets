@@ -1,9 +1,10 @@
 ﻿using System;
+using Library.Responses;
 using Newtonsoft.Json;
 
 namespace Library.Utilities
 {
-    internal sealed class UriConverter : JsonConverter
+    internal sealed class DataConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -13,7 +14,8 @@ namespace Library.Utilities
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
             JsonSerializer serializer)
         {
-            return new Uri(reader.Value.ToString());
+            var value = reader.Value as string;
+            return JsonConvert.DeserializeObject<Data>(value);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
