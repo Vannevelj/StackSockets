@@ -44,7 +44,7 @@ namespace Library
         private async Task Receive()
         {
             var temporaryBuffer = new byte[BufferSize];
-            var buffer = new byte[BufferSize * BufferAmplifier];
+            var buffer = new byte[BufferSize*BufferAmplifier];
             var offset = 0;
 
             while (_socket.State == WebSocketState.Open)
@@ -78,7 +78,7 @@ namespace Library
                         _requestParameters.ResponseDataType);
 
                     OnSocketReceive.Invoke(this, new SocketEventArgs {Response = responseObject});
-                    buffer = new byte[BufferSize * BufferAmplifier];
+                    buffer = new byte[BufferSize*BufferAmplifier];
                     offset = 0;
                 }
             }

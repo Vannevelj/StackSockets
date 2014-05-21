@@ -6,21 +6,21 @@ namespace Library.Requests
 {
     public abstract class RequestParameters
     {
-        public abstract string GetRequestValue();
+        internal abstract string GetRequestValue();
 
-        public abstract JsonConverter ResponseDataType { get; }
+        internal abstract JsonConverter ResponseDataType { get; }
     }
 
     public sealed class ActiveQuestionsRequestParameters : RequestParameters
     {
         public string SiteId { get; set; }
 
-        public override string GetRequestValue()
+        internal override string GetRequestValue()
         {
             return SiteId + "-questions-active";
         }
 
-        public override JsonConverter ResponseDataType
+        internal override JsonConverter ResponseDataType
         {
             get { return new DataConverter<ActiveQuestionsData>(); }
         }
@@ -31,12 +31,12 @@ namespace Library.Requests
         public string SiteId { get; set; }
         public string Tag { get; set; }
 
-        public override string GetRequestValue()
+        internal override string GetRequestValue()
         {
             return SiteId + "-questions-newest-tag-" + Tag.ToLower();
         }
 
-        public override JsonConverter ResponseDataType
+        internal override JsonConverter ResponseDataType
         {
             get { return new DataConverter<NewestQuestionsByTagData>(); }
         }
