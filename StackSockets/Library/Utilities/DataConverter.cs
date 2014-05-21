@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Library.Utilities
 {
-    internal sealed class DataConverter : JsonConverter
+    internal sealed class DataConverter<T> : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -15,7 +15,7 @@ namespace Library.Utilities
             JsonSerializer serializer)
         {
             var value = reader.Value as string;
-            return JsonConvert.DeserializeObject<Data>(value);
+            return JsonConvert.DeserializeObject<T>(value);
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

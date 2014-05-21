@@ -1,5 +1,6 @@
 ﻿using System;
 using Library;
+using Library.Responses;
 
 namespace StackSockets
 {
@@ -16,11 +17,17 @@ namespace StackSockets
 
         private static void OnDataReceived(object sender, SocketEventArgs e)
         {
-            Console.WriteLine("{0} - {1}", "Title", e.Response.Data.TitleEncodedFancy);
-            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", e.Response.Data.Tags));
-            Console.WriteLine("{0} - {1}", "Last activity", e.Response.Data.LastActivityDate);
-            Console.WriteLine("{0}", e.Response.Data.ApiSiteParameter);
-            Console.WriteLine(e.Response.Data.QuestionUrl);
+            var data = e.Response.Data as ActiveQuestionsData;
+            if (data == null)
+            {
+                return;
+            }
+
+            Console.WriteLine("{0} - {1}", "Title", data.TitleEncodedFancy);
+            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
+            Console.WriteLine("{0} - {1}", "Last activity", data.LastActivityDate);
+            Console.WriteLine("{0}", data.ApiSiteParameter);
+            Console.WriteLine(data.QuestionUrl);
             Console.WriteLine();
         }
     }

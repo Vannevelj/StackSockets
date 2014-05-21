@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Library.Responses;
+using Library.Utilities;
 using Newtonsoft.Json;
 
 namespace Library
@@ -53,7 +54,8 @@ namespace Library
                 else
                 {
                     var result = Encoding.UTF8.GetString(buffer);
-                    var responseObject = JsonConvert.DeserializeObject<Response>(result);
+                    var responseObject = JsonConvert.DeserializeObject<Response>(result,
+                        new DataConverter<ActiveQuestionsData>());
 
                     OnSocketReceive.Invoke(this, new SocketEventArgs {Response = responseObject});
                     buffer = new byte[1024];

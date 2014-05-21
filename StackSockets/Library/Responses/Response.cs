@@ -11,11 +11,14 @@ namespace Library.Responses
         public string Action { get; internal set; }
 
         [JsonProperty("data")]
-        [JsonConverter(typeof (DataConverter))]
         public Data Data { get; internal set; }
     }
 
-    public sealed class Data
+    public abstract class Data
+    {
+    }
+
+    public sealed class ActiveQuestionsData : Data
     {
         [JsonProperty("siteBaseHostAddress")]
         public string SiteBaseHostAddress { get; internal set; }
