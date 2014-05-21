@@ -53,4 +53,22 @@ namespace Library.Responses
         [JsonProperty("apiSiteParameter")]
         public string ApiSiteParameter { get; internal set; }
     }
+
+    public sealed class NewestQuestionsByTagData : Data
+    {
+        [JsonProperty("id")]
+        public string Id { get; internal set; }
+
+        [JsonProperty("body")]
+        public string Body { get; internal set; }
+
+        [JsonProperty("tags")]
+        public IEnumerable<string> Tags { get; internal set; }
+
+        [JsonProperty("siteid")]
+        public string SiteId { get; internal set; }
+
+        [JsonProperty("fetch")]
+        public bool Fetch { get; internal set; }
+    }
 }

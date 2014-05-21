@@ -3,8 +3,8 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Library.Requests;
 using Library.Responses;
-using Library.Utilities;
 using Newtonsoft.Json;
 
 namespace Library
@@ -13,12 +13,16 @@ namespace Library
     {
         private readonly ClientWebSocket _socket = new ClientWebSocket();
         private readonly Uri _uri;
+        private readonly RequestParameters _requestParameters;
+        private const int BufferSize = 4096;
+        private const int BufferAmplifier = 20;
 
         public event EventHandler<SocketEventArgs> OnSocketReceive;
 
-        public StackSocket(string url)
+        public StackSocket(string url, RequestParameters parameters)
         {
             _uri = new Uri(url);
+            _requestParameters = parameters;
         }
 
         public async void Connect()
@@ -28,7 +32,7 @@ namespace Library
                 await _socket.ConnectAsync(_uri, CancellationToken.None);
             }
 
-            var request = Encoding.UTF8.GetBytes("155-questions-active");
+            var request = Encoding.UTF8.GetBytes(_requestParameters.GetRequestValue());
 
             await
                 _socket.SendAsync(new ArraySegment<byte>(request), WebSocketMessageType.Text, true,
@@ -39,11 +43,27 @@ namespace Library
 
         private async Task Receive()
         {
-            var buffer = new byte[1024];
+            var temporaryBuffer = new byte[BufferSize];
+            var buffer = new byte[BufferSize * BufferAmplifier];
+            var offset = 0;
 
             while (_socket.State == WebSocketState.Open)
             {
-                var response = await _socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                WebSocketReceiveResult response;
+
+                while (true)
+                {
+                    response =
+                        await _socket.ReceiveAsync(new ArraySegment<byte>(temporaryBuffer), CancellationToken.None);
+                    temporaryBuffer.CopyTo(buffer, offset);
+                    offset += response.Count;
+                    temporaryBuffer = new byte[BufferSize];
+
+                    if (response.EndOfMessage)
+                    {
+                        break;
+                    }
+                }
 
                 if (response.MessageType == WebSocketMessageType.Close)
                 {
@@ -55,10 +75,11 @@ namespace Library
                 {
                     var result = Encoding.UTF8.GetString(buffer);
                     var responseObject = JsonConvert.DeserializeObject<Response>(result,
-                        new DataConverter<ActiveQuestionsData>());
+                        _requestParameters.ResponseDataType);
 
                     OnSocketReceive.Invoke(this, new SocketEventArgs {Response = responseObject});
-                    buffer = new byte[1024];
+                    buffer = new byte[BufferSize * BufferAmplifier];
+                    offset = 0;
                 }
             }
         }

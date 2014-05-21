@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Library.Utilities
 {
-    internal sealed class DataConverter<T> : JsonConverter
+    public sealed class DataConverter<T> : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
