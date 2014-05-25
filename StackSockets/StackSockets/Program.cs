@@ -93,8 +93,6 @@ namespace Console
                 QuestionId = 23856972
             };
 
-            //settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
-
             settings.OnCommentAdded += OnQuestionActivityCommentAdded;
             settings.OnPostEdited += OnQuestionActivityPostEdited;
             settings.OnScoreChange += OnQuestionActivityScoreChanged;

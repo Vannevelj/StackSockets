@@ -76,7 +76,6 @@ namespace Library.Requests
 
         public int SiteId { get; set; }
         public int QuestionId { get; set; }
-        private Activity[] Activities { get; set; }
 
         internal override JsonConverter ResponseDataType
         {
@@ -88,62 +87,54 @@ namespace Library.Requests
             return SiteId + "-question-" + QuestionId;
         }
 
-        public void Subscribe(params Activity[] activities)
-        {
-            Activities = activities;
-        }
-
         internal override void FireEvent(object sender, SocketEventArgs e)
         {
-            if (Activities == null || Array.Exists(Activities, x => x == e.Activity))
+            switch (e.Activity)
             {
-                switch (e.Activity)
-                {
-                    case Activity.PostEdit:
-                        if (OnPostEdited != null)
-                        {
-                            OnPostEdited(sender, e);
-                        }
-                        break;
+                case Activity.PostEdit:
+                    if (OnPostEdited != null)
+                    {
+                        OnPostEdited(sender, e);
+                    }
+                    break;
 
-                    case Activity.CommentAdd:
-                        if (OnCommentAdded != null)
-                        {
-                            OnCommentAdded(sender, e);
-                        }
-                        break;
+                case Activity.CommentAdd:
+                    if (OnCommentAdded != null)
+                    {
+                        OnCommentAdded(sender, e);
+                    }
+                    break;
 
-                    case Activity.AnswerAdd:
-                        if (OnAnswerAdded != null)
-                        {
-                            OnAnswerAdded(sender, e);
-                        }
-                        break;
+                case Activity.AnswerAdd:
+                    if (OnAnswerAdded != null)
+                    {
+                        OnAnswerAdded(sender, e);
+                    }
+                    break;
 
-                    case Activity.ScoreChange:
-                        if (OnScoreChange != null)
-                        {
-                            OnScoreChange(sender, e);
-                        }
-                        break;
+                case Activity.ScoreChange:
+                    if (OnScoreChange != null)
+                    {
+                        OnScoreChange(sender, e);
+                    }
+                    break;
 
-                    case Activity.AnswerAccept:
-                        if (OnAnswerAccepted != null)
-                        {
-                            OnAnswerAccepted(sender, e);
-                        }
-                        break;
+                case Activity.AnswerAccept:
+                    if (OnAnswerAccepted != null)
+                    {
+                        OnAnswerAccepted(sender, e);
+                    }
+                    break;
 
-                    case Activity.AnswerUnaccept:
-                        if (OnAnswerUnaccepted != null)
-                        {
-                            OnAnswerUnaccepted(sender, e);
-                        }
-                        break;
+                case Activity.AnswerUnaccept:
+                    if (OnAnswerUnaccepted != null)
+                    {
+                        OnAnswerUnaccepted(sender, e);
+                    }
+                    break;
 
-                    default:
-                        throw new ArgumentException("The passed activity is not applicable for this event.");
-                }
+                default:
+                    throw new ArgumentException("The passed activity is not applicable for this event.");
             }
         }
     }
