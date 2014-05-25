@@ -26,7 +26,7 @@ namespace Library.Responses
         public string SiteBaseHostAddress { get; internal set; }
 
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("titleEncodedFancy")]
         public string TitleEncodedFancy { get; internal set; }
@@ -64,7 +64,7 @@ namespace Library.Responses
     public sealed class NewestQuestionsByTagData : Data
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("body")]
         public string Body { get; internal set; }
@@ -73,7 +73,7 @@ namespace Library.Responses
         public IEnumerable<string> Tags { get; internal set; }
 
         [JsonProperty("siteid")]
-        public string SiteId { get; internal set; }
+        public int SiteId { get; internal set; }
 
         [JsonProperty("fetch")]
         public bool Fetch { get; internal set; }
@@ -91,13 +91,13 @@ namespace Library.Responses
     public sealed class CommentAddedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("commentid")]
-        public string CommentId { get; internal set; }
+        public int CommentId { get; internal set; }
 
         [JsonProperty("acctid")]
-        public string AccountId { get; internal set; }
+        public int AccountId { get; internal set; }
 
         public override Activity Activity
         {
@@ -108,10 +108,10 @@ namespace Library.Responses
     public sealed class PostEditedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("acctid")]
-        public string AccountId { get; internal set; }
+        public int AccountId { get; internal set; }
 
         public override Activity Activity
         {
@@ -122,10 +122,10 @@ namespace Library.Responses
     public sealed class ScoreChangedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("score")]
-        public string Score { get; internal set; }
+        public int Score { get; internal set; }
 
         public override Activity Activity
         {
@@ -136,13 +136,13 @@ namespace Library.Responses
     public sealed class AnswerAddedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("answerid")]
-        public string AnswerId { get; internal set; }
+        public int AnswerId { get; internal set; }
 
         [JsonProperty("acctid")]
-        public string AccountId { get; internal set; }
+        public int AccountId { get; internal set; }
 
         public override Activity Activity
         {
@@ -153,13 +153,13 @@ namespace Library.Responses
     public sealed class AnswerAcceptedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("answerid")]
-        public string AnswerId { get; internal set; }
+        public int AnswerId { get; internal set; }
 
         [JsonProperty("acctid")]
-        public string AccountId { get; internal set; }
+        public int AccountId { get; internal set; }
 
         public override Activity Activity
         {
@@ -170,13 +170,13 @@ namespace Library.Responses
     public sealed class AnswerUnAcceptedData : QuestionActivityData
     {
         [JsonProperty("id")]
-        public string PostId { get; internal set; }
+        public int PostId { get; internal set; }
 
         [JsonProperty("answerid")]
-        public string AnswerId { get; internal set; }
+        public int AnswerId { get; internal set; }
 
         [JsonProperty("acctid")]
-        public string AccountId { get; internal set; }
+        public int AccountId { get; internal set; }
 
         public override Activity Activity
         {

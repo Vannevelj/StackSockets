@@ -5,7 +5,6 @@ using Library.Responses;
 
 namespace Console
 {
-    //TODO: use proper types (like ints) for the JSON responses
     internal class Program
     {
         private static void Main(string[] args)
@@ -23,7 +22,7 @@ namespace Console
         {
             var settings = new ActiveQuestionsRequestParameters
             {
-                SiteId = "155"
+                SiteId = 155
             };
 
             settings.OnNewActivity += OnActiveQuestionsDataReceived;
@@ -56,7 +55,7 @@ namespace Console
         {
             var settings = new NewestQuestionsByTagRequestParameters
             {
-                SiteId = "1",
+                SiteId = 1,
                 Tag = "Java"
             };
 
@@ -90,8 +89,8 @@ namespace Console
         {
             var settings = new QuestionActivityRequestParameters
             {
-                SiteId = "1",
-                QuestionId = "23855987"
+                SiteId = 1,
+                QuestionId = 23856972
             };
 
             //settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);

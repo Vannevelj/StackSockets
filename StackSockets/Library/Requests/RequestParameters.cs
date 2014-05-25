@@ -18,7 +18,7 @@ namespace Library.Requests
     {
         public event EventHandler<SocketEventArgs> OnNewActivity;
 
-        public string SiteId { get; set; }
+        public int SiteId { get; set; }
 
         internal override string GetRequestValue()
         {
@@ -43,7 +43,7 @@ namespace Library.Requests
     {
         public event EventHandler<SocketEventArgs> OnNewQuestion;
 
-        public string SiteId { get; set; }
+        public int SiteId { get; set; }
         public string Tag { get; set; }
 
         internal override string GetRequestValue()
@@ -74,8 +74,8 @@ namespace Library.Requests
         public event EventHandler<SocketEventArgs> OnAnswerAccepted;
         public event EventHandler<SocketEventArgs> OnAnswerUnaccepted;
 
-        public string SiteId { get; set; }
-        public string QuestionId { get; set; }
+        public int SiteId { get; set; }
+        public int QuestionId { get; set; }
         private Activity[] Activities { get; set; }
 
         internal override JsonConverter ResponseDataType
