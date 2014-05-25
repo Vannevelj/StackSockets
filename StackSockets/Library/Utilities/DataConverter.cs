@@ -26,73 +26,37 @@ namespace Library.Utilities
 
         private object GetSpecificQuestionActivity(string json)
         {
-            if (IsPostEdit(json))
+            if (IsType(json, "post-edit"))
             {
                 return JsonConvert.DeserializeObject<PostEditedData>(json);
             }
 
-            if (IsCommentAdd(json))
+            if (IsType(json, "comment-add"))
             {
                 return JsonConvert.DeserializeObject<CommentAddedData>(json);
             }
 
-            if (IsScore(json))
+            if (IsType(json, "score"))
             {
                 return JsonConvert.DeserializeObject<ScoreChangedData>(json);
             }
 
-            if (IsAnswerAdd(json))
+            if (IsType(json, "answer-add"))
             {
                 return JsonConvert.DeserializeObject<AnswerAddedData>(json);
             }
 
-            if (IsAnswerAccept(json))
+            if (IsType(json, "accept"))
             {
                 return JsonConvert.DeserializeObject<AnswerAcceptedData>(json);
             }
 
-            if (IsAnswerUnAccept(json))
+            if (IsType(json, "unaccept"))
             {
                 return JsonConvert.DeserializeObject<AnswerUnAcceptedData>(json);
             }
 
             throw new JsonException("The passed JSON couldn't be recognized");
-
-            // return-type to indicate what Activity is being used?
-
-            // Set events in each RequestParameters object
-            // Use general FireEvent(responseObject) method (internal)
-            // Only open events to user
-        }
-
-        private bool IsPostEdit(string data)
-        {
-            return IsType(data, "post-edit");
-        }
-
-        private bool IsCommentAdd(string data)
-        {
-            return IsType(data, "comment-add");
-        }
-
-        private bool IsScore(string data)
-        {
-            return IsType(data, "score");
-        }
-
-        private bool IsAnswerAdd(string data)
-        {
-            return IsType(data, "answer-add");
-        }
-
-        private bool IsAnswerAccept(string data)
-        {
-            return IsType(data, "accept");
-        }
-
-        private bool IsAnswerUnAccept(string data)
-        {
-            return IsType(data, "unaccept");
         }
 
         private bool IsType(string data, string type)

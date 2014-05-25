@@ -10,8 +10,8 @@ namespace Console
         private static void Main(string[] args)
         {
             //ActiveQuestions();
-            //NewestQuestionsByTag();
-            QuestionActivity();
+            NewestQuestionsByTag();
+            //QuestionActivity();
 
             System.Console.ReadKey();
         }

@@ -49,19 +49,14 @@ namespace Library
             {
                 WebSocketReceiveResult response;
 
-                while (true)
+                do
                 {
                     response =
                         await _socket.ReceiveAsync(new ArraySegment<byte>(temporaryBuffer), CancellationToken.None);
                     temporaryBuffer.CopyTo(buffer, offset);
                     offset += response.Count;
                     temporaryBuffer = new byte[BufferSize];
-
-                    if (response.EndOfMessage)
-                    {
-                        break;
-                    }
-                }
+                } while (!response.EndOfMessage);
 
                 if (response.MessageType == WebSocketMessageType.Close)
                 {
