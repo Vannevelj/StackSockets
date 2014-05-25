@@ -1,4 +1,6 @@
-﻿using Library.Responses;
+﻿using System;
+using System.Collections;
+using Library.Responses;
 using Library.Utilities;
 using Newtonsoft.Json;
 
@@ -39,6 +41,32 @@ namespace Library.Requests
         internal override JsonConverter ResponseDataType
         {
             get { return new DataConverter<NewestQuestionsByTagData>(); }
+        }
+    }
+
+    public sealed class QuestionActivityRequestParameters : RequestParameters
+    {
+        public event EventHandler<SocketEventArgs> OnCommentAdded;
+        public event EventHandler<SocketEventArgs> OnPostEdited;
+        public event EventHandler<SocketEventArgs> OnScoreChange;
+
+        public string SiteId { get; set; }
+        public string QuestionId { get; set; }
+        private Activity[] Activities { get; set; }
+
+        internal override JsonConverter ResponseDataType
+        {
+            get { return new DataConverter<QuestionActivityData>(); }
+        }
+
+        internal override string GetRequestValue()
+        {
+            return SiteId + "-questions-newest-tag-" + QuestionId;
+        }
+
+        public void Subscribe(params Activity[] activities)
+        {
+            Activities = activities;
         }
     }
 }

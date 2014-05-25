@@ -71,4 +71,38 @@ namespace Library.Responses
         [JsonProperty("fetch")]
         public bool Fetch { get; internal set; }
     }
+
+    public class QuestionActivityData : Data
+    { 
+    }
+
+    public sealed class CommentAddedData : QuestionActivityData
+    {
+        [JsonProperty("id")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("commentid")]
+        public string CommentId { get; internal set; }
+
+        [JsonProperty("acctid")]
+        public string AccountId { get; internal set; }
+    }
+
+    public sealed class PostEditedData : QuestionActivityData
+    {
+        [JsonProperty("id")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("acctid")]
+        public string AccountId { get; internal set; }
+    }
+
+    public sealed class ScoreChangedData : QuestionActivityData
+    {
+        [JsonProperty("commentid")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("score")]
+        public string Score { get; internal set; }
+    }
 }
