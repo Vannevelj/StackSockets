@@ -5,13 +5,14 @@ using Library.Responses;
 
 namespace Console
 {
+    //TODO: use proper types (like ints) for the JSON responses
     internal class Program
     {
         private static void Main(string[] args)
         {
             //ActiveQuestions();
             //NewestQuestionsByTag();
-            //QuestionActivity();
+            QuestionActivity();
 
             System.Console.ReadKey();
         }
@@ -79,61 +80,61 @@ namespace Console
 
         #endregion
 
-        //#region QuestionActivity
-        //private static void QuestionActivity()
-        //{
-        //    var settings = new QuestionActivityRequestParameters
-        //    {
-        //        SiteID = "1",
-        //        QuestionId = "23851409"
-        //    };
+        #region QuestionActivity
+        private static void QuestionActivity()
+        {
+            var settings = new QuestionActivityRequestParameters
+            {
+                SiteId = "1",
+                QuestionId = "23851409"
+            };
 
-        //    settings.SubScribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
+            settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
 
-        //    settings.OnCommentAdded += OnQuestionActivityCommentAdded;
-        //    settings.OnPostEdited += OnQuestionActivityPostEdited;
-        //    settings.OnScoreChange += OnQuestionActivityScoreChanged;
-        //}
+            settings.OnCommentAdded += OnQuestionActivityCommentAdded;
+            settings.OnPostEdited += OnQuestionActivityPostEdited;
+            settings.OnScoreChange += OnQuestionActivityScoreChanged;
+        }
 
-        //private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)
-        //{
-        //    var data = e.Response.Data as CommentAddedData;
-        //    if (data == null)
-        //    {
-        //        return;
-        //    }
+        private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as CommentAddedData;
+            if (data == null)
+            {
+                return;
+            }
 
-        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-        //    System.Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
-        //    System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-        //    System.Console.WriteLine();
-        //}
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
+            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            System.Console.WriteLine();
+        }
 
-        //private static void OnQuestionActivityPostEdited(object sender, SocketEventArgs e)
-        //{
-        //    var data = e.Response.Data as PostEditedData;
-        //    if (data == null)
-        //    {
-        //        return;
-        //    }
+        private static void OnQuestionActivityPostEdited(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as PostEditedData;
+            if (data == null)
+            {
+                return;
+            }
 
-        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-        //    System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-        //    System.Console.WriteLine();
-        //}
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            System.Console.WriteLine();
+        }
 
-        //private static void OnQuestionActivityScoreChanged(object sender, SocketEventArgs e)
-        //{
-        //    var data = e.Response.Data as ScoreChangedData;
-        //    if (data == null)
-        //    {
-        //        return;
-        //    }
+        private static void OnQuestionActivityScoreChanged(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as ScoreChangedData;
+            if (data == null)
+            {
+                return;
+            }
 
-        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-        //    System.Console.WriteLine("{0} - {1}", "Score", data.Score);
-        //    System.Console.WriteLine();
-        //} 
-        //#endregion
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Score", data.Score);
+            System.Console.WriteLine();
+        }
+        #endregion
     }
 }
