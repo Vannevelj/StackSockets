@@ -149,4 +149,38 @@ namespace Library.Responses
             get { return Activity.AnswerAdd; }
         }
     }
+
+    public sealed class AnswerAcceptedData : QuestionActivityData
+    {
+        [JsonProperty("id")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("answerid")]
+        public string AnswerId { get; internal set; }
+
+        [JsonProperty("acctid")]
+        public string AccountId { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.AnswerAccept; }
+        }
+    }
+
+    public sealed class AnswerUnAcceptedData : QuestionActivityData
+    {
+        [JsonProperty("id")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("answerid")]
+        public string AnswerId { get; internal set; }
+
+        [JsonProperty("acctid")]
+        public string AccountId { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.AnswerUnaccept; }
+        }
+    }
 }

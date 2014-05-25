@@ -91,7 +91,7 @@ namespace Console
             var settings = new QuestionActivityRequestParameters
             {
                 SiteId = "1",
-                QuestionId = "23855664"
+                QuestionId = "23855987"
             };
 
             //settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
@@ -99,9 +99,57 @@ namespace Console
             settings.OnCommentAdded += OnQuestionActivityCommentAdded;
             settings.OnPostEdited += OnQuestionActivityPostEdited;
             settings.OnScoreChange += OnQuestionActivityScoreChanged;
+            settings.OnAnswerAdded += OnQuestionActivityAnswerAdded;
+            settings.OnAnswerAccepted += OnQuestionActivityAnswerAccepted;
+            settings.OnAnswerUnaccepted += OnQuestionActivityAnswerUnaccepted;
 
             var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
             socket.Connect();
+        }
+
+        private static void OnQuestionActivityAnswerUnaccepted(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as AnswerUnAcceptedData;
+            if (data == null)
+            {
+                throw new Exception("answerunaccepted");
+            }
+
+            System.Console.WriteLine("Answer Unaccepted");
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            System.Console.WriteLine();
+        }
+
+        private static void OnQuestionActivityAnswerAccepted(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as AnswerAcceptedData;
+            if (data == null)
+            {
+                throw new Exception("answeraccepted");
+            }
+
+            System.Console.WriteLine("Answer Accepted");
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            System.Console.WriteLine();
+        }
+
+        private static void OnQuestionActivityAnswerAdded(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as AnswerAddedData;
+            if (data == null)
+            {
+                throw new Exception("answeradded");
+            }
+
+            System.Console.WriteLine("Answer added");
+            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            System.Console.WriteLine();
         }
 
         private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)

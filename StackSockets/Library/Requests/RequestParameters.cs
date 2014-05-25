@@ -27,7 +27,10 @@ namespace Library.Requests
 
         internal override void FireEvent(object sender, SocketEventArgs e)
         {
-            OnNewActivity.Invoke(sender, e);
+            if (OnNewActivity != null)
+            {
+                OnNewActivity(sender, e);
+            }
         }
 
         internal override JsonConverter ResponseDataType
@@ -50,7 +53,10 @@ namespace Library.Requests
 
         internal override void FireEvent(object sender, SocketEventArgs e)
         {
-            OnNewQuestion.Invoke(sender, e);
+            if (OnNewQuestion != null)
+            {
+                OnNewQuestion(sender, e);
+            }
         }
 
         internal override JsonConverter ResponseDataType
@@ -118,6 +124,20 @@ namespace Library.Requests
                         if (OnScoreChange != null)
                         {
                             OnScoreChange(sender, e);
+                        }
+                        break;
+
+                    case Activity.AnswerAccept:
+                        if (OnAnswerAccepted != null)
+                        {
+                            OnAnswerAccepted(sender, e);
+                        }
+                        break;
+
+                    case Activity.AnswerUnaccept:
+                        if (OnAnswerUnaccepted != null)
+                        {
+                            OnAnswerUnaccepted(sender, e);
                         }
                         break;
 

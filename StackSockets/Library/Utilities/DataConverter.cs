@@ -26,9 +26,6 @@ namespace Library.Utilities
 
         private object GetSpecificQuestionActivity(string json)
         {
-            // return correct deserialization based on the data
-            // try-catch parsing or a Contains() check?
-
             if (IsPostEdit(json))
             {
                 return JsonConvert.DeserializeObject<PostEditedData>(json);
@@ -47,6 +44,16 @@ namespace Library.Utilities
             if (IsAnswerAdd(json))
             {
                 return JsonConvert.DeserializeObject<AnswerAddedData>(json);
+            }
+
+            if (IsAnswerAccept(json))
+            {
+                return JsonConvert.DeserializeObject<AnswerAcceptedData>(json);
+            }
+
+            if (IsAnswerUnAccept(json))
+            {
+                return JsonConvert.DeserializeObject<AnswerUnAcceptedData>(json);
             }
 
             throw new JsonException("The passed JSON couldn't be recognized");
@@ -76,6 +83,16 @@ namespace Library.Utilities
         private bool IsAnswerAdd(string data)
         {
             return IsType(data, "answer-add");
+        }
+
+        private bool IsAnswerAccept(string data)
+        {
+            return IsType(data, "accept");
+        }
+
+        private bool IsAnswerUnAccept(string data)
+        {
+            return IsType(data, "unaccept");
         }
 
         private bool IsType(string data, string type)
