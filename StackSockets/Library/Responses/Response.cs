@@ -24,7 +24,7 @@ namespace Library.Responses
         public string SiteBaseHostAddress { get; internal set; }
 
         [JsonProperty("id")]
-        public string Id { get; internal set; }
+        public string PostId { get; internal set; }
 
         [JsonProperty("titleEncodedFancy")]
         public string TitleEncodedFancy { get; internal set; }
@@ -57,7 +57,7 @@ namespace Library.Responses
     public sealed class NewestQuestionsByTagData : Data
     {
         [JsonProperty("id")]
-        public string Id { get; internal set; }
+        public string PostId { get; internal set; }
 
         [JsonProperty("body")]
         public string Body { get; internal set; }

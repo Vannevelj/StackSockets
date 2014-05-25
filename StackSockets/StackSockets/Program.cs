@@ -1,4 +1,5 @@
-﻿using Library;
+﻿using System;
+using Library;
 using Library.Requests;
 using Library.Responses;
 
@@ -9,7 +10,8 @@ namespace Console
         private static void Main(string[] args)
         {
             //ActiveQuestions();
-            NewestQuestionsByTag();
+            //NewestQuestionsByTag();
+            //QuestionActivity();
 
             System.Console.ReadKey();
         }
@@ -69,12 +71,69 @@ namespace Console
 
             System.Console.WriteLine("{0} - {1}", "Title", data.Body);
             System.Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
-            System.Console.WriteLine("{0} - {1}", "ID", data.Id);
+            System.Console.WriteLine("{0} - {1}", "ID", data.PostId);
             System.Console.WriteLine("{0} - {1}", "Site ID", data.SiteId);
             System.Console.WriteLine(data.Fetch);
             System.Console.WriteLine();
         }
 
         #endregion
+
+        //#region QuestionActivity
+        //private static void QuestionActivity()
+        //{
+        //    var settings = new QuestionActivityRequestParameters
+        //    {
+        //        SiteID = "1",
+        //        QuestionId = "23851409"
+        //    };
+
+        //    settings.SubScribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
+
+        //    settings.OnCommentAdded += OnQuestionActivityCommentAdded;
+        //    settings.OnPostEdited += OnQuestionActivityPostEdited;
+        //    settings.OnScoreChange += OnQuestionActivityScoreChanged;
+        //}
+
+        //private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)
+        //{
+        //    var data = e.Response.Data as CommentAddedData;
+        //    if (data == null)
+        //    {
+        //        return;
+        //    }
+
+        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+        //    System.Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
+        //    System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+        //    System.Console.WriteLine();
+        //}
+
+        //private static void OnQuestionActivityPostEdited(object sender, SocketEventArgs e)
+        //{
+        //    var data = e.Response.Data as PostEditedData;
+        //    if (data == null)
+        //    {
+        //        return;
+        //    }
+
+        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+        //    System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+        //    System.Console.WriteLine();
+        //}
+
+        //private static void OnQuestionActivityScoreChanged(object sender, SocketEventArgs e)
+        //{
+        //    var data = e.Response.Data as ScoreChangedData;
+        //    if (data == null)
+        //    {
+        //        return;
+        //    }
+
+        //    System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+        //    System.Console.WriteLine("{0} - {1}", "Score", data.Score);
+        //    System.Console.WriteLine();
+        //} 
+        //#endregion
     }
 }
