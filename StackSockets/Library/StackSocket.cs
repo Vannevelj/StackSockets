@@ -17,8 +17,6 @@ namespace Library
         private const int BufferSize = 4096;
         private const int BufferAmplifier = 20;
 
-        public event EventHandler<SocketEventArgs> OnSocketReceive;
-
         public StackSocket(string url, RequestParameters parameters)
         {
             _uri = new Uri(url);
@@ -77,7 +75,8 @@ namespace Library
                     var responseObject = JsonConvert.DeserializeObject<Response>(result,
                         _requestParameters.ResponseDataType);
 
-                    OnSocketReceive.Invoke(this, new SocketEventArgs {Response = responseObject});
+                    _requestParameters.FireEvent(this,
+                        new SocketEventArgs {Response = responseObject, Activity = responseObject.Data.Activity});
                     buffer = new byte[BufferSize*BufferAmplifier];
                     offset = 0;
                 }
@@ -92,6 +91,8 @@ namespace Library
 
     public class SocketEventArgs : EventArgs
     {
-        public Response Response { get; set; }
+        public Response Response { get; internal set; }
+
+        public Activity Activity { get; internal set; }
     }
 }

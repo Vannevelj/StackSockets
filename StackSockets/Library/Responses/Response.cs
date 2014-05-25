@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.Requests;
 using Library.Utilities;
 using Newtonsoft.Json;
 
@@ -16,6 +17,7 @@ namespace Library.Responses
 
     public abstract class Data
     {
+        public abstract Activity Activity { get; }
     }
 
     public sealed class ActiveQuestionsData : Data
@@ -52,6 +54,11 @@ namespace Library.Responses
 
         [JsonProperty("apiSiteParameter")]
         public string ApiSiteParameter { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.ActiveQuestions; }
+        }
     }
 
     public sealed class NewestQuestionsByTagData : Data
@@ -70,10 +77,15 @@ namespace Library.Responses
 
         [JsonProperty("fetch")]
         public bool Fetch { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.NewestQuestionsByTag; }
+        }
     }
 
-    public class QuestionActivityData : Data
-    { 
+    public abstract class QuestionActivityData : Data
+    {
     }
 
     public sealed class CommentAddedData : QuestionActivityData
@@ -86,6 +98,11 @@ namespace Library.Responses
 
         [JsonProperty("acctid")]
         public string AccountId { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.CommentAdd; }
+        }
     }
 
     public sealed class PostEditedData : QuestionActivityData
@@ -95,14 +112,41 @@ namespace Library.Responses
 
         [JsonProperty("acctid")]
         public string AccountId { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.PostEdit; }
+        }
     }
 
     public sealed class ScoreChangedData : QuestionActivityData
     {
-        [JsonProperty("commentid")]
+        [JsonProperty("id")]
         public string PostId { get; internal set; }
 
         [JsonProperty("score")]
         public string Score { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.ScoreChange; }
+        }
+    }
+
+    public sealed class AnswerAddedData : QuestionActivityData
+    {
+        [JsonProperty("id")]
+        public string PostId { get; internal set; }
+
+        [JsonProperty("answerid")]
+        public string AnswerId { get; internal set; }
+
+        [JsonProperty("acctid")]
+        public string AccountId { get; internal set; }
+
+        public override Activity Activity
+        {
+            get { return Activity.AnswerAdd; }
+        }
     }
 }

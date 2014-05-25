@@ -25,8 +25,10 @@ namespace Console
             {
                 SiteId = "155"
             };
+
+            settings.OnNewActivity += OnActiveQuestionsDataReceived;
+
             var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
-            socket.OnSocketReceive += OnActiveQuestionsDataReceived;
             socket.Connect();
         }
 
@@ -57,8 +59,10 @@ namespace Console
                 SiteId = "1",
                 Tag = "Java"
             };
+
+            settings.OnNewQuestion += OnNewestQuestionsByTagDataReceived;
+
             var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
-            socket.OnSocketReceive += OnNewestQuestionsByTagDataReceived;
             socket.Connect();
         }
 
@@ -81,19 +85,23 @@ namespace Console
         #endregion
 
         #region QuestionActivity
+
         private static void QuestionActivity()
         {
             var settings = new QuestionActivityRequestParameters
             {
                 SiteId = "1",
-                QuestionId = "23851409"
+                QuestionId = "23855664"
             };
 
-            settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
+            //settings.Subscribe(Activity.CommentAdd, Activity.PostEdit, Activity.ScoreChange);
 
             settings.OnCommentAdded += OnQuestionActivityCommentAdded;
             settings.OnPostEdited += OnQuestionActivityPostEdited;
             settings.OnScoreChange += OnQuestionActivityScoreChanged;
+
+            var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
+            socket.Connect();
         }
 
         private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)
@@ -101,9 +109,10 @@ namespace Console
             var data = e.Response.Data as CommentAddedData;
             if (data == null)
             {
-                return;
+                throw new Exception("commentadded");
             }
 
+            System.Console.WriteLine("Comment Added");
             System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
             System.Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
             System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
@@ -115,9 +124,10 @@ namespace Console
             var data = e.Response.Data as PostEditedData;
             if (data == null)
             {
-                return;
+                throw new Exception("postedited");
             }
 
+            System.Console.WriteLine("Post Edited");
             System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
             System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
             System.Console.WriteLine();
@@ -128,13 +138,15 @@ namespace Console
             var data = e.Response.Data as ScoreChangedData;
             if (data == null)
             {
-                return;
+                throw new Exception("scorechanged");
             }
 
+            System.Console.WriteLine("Score Changed");
             System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
             System.Console.WriteLine("{0} - {1}", "Score", data.Score);
             System.Console.WriteLine();
         }
+
         #endregion
     }
 }
