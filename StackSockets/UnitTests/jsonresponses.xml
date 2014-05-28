@@ -1,0 +1,6 @@
+﻿<data>
+  <response>
+    <query>questions-active</query>
+    <string> {"action":"155-questions-active","data":"{\"siteBaseHostAddress\":\"chinese.stackexchange.com\",\"id\":6977,\"titleEncodedFancy\":\"My patience is running out\",\"bodySummary\":\"How can I say my patience is wearing thin or my patience is running out?\",\"tags\":[\"translation\"],\"lastActivityDate\":1401243427,\"url\":\"http://chinese.stackexchange.com/questions/6977/my-patience-is-running-out\",\"ownerUrl\":\"http://chinese.stackexchange.com/users/2274/growler\",\"ownerDisplayName\":\"Growler\",\"apiSiteParameter\":\"chinese\"}"}</string>
+  </response>
+</data>
