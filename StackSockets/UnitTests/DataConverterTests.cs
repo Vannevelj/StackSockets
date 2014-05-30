@@ -121,7 +121,6 @@ namespace UnitTests
             Assert.AreEqual(1888343, response.AccountId);
         }
 
-        [Ignore]
         [TestMethod]
         public void DataConverter_CanParse_Question_Accept()
         {
@@ -130,10 +129,10 @@ namespace UnitTests
             var response = obj.Data as AnswerAcceptedData;
 
             Assert.IsNotNull(response);
-            Assert.AreEqual("1-question-0", obj.Action);
-            Assert.AreEqual(0, response.PostId);
-            Assert.AreEqual(0, response.AnswerId);
-            Assert.AreEqual(0, response.AccountId);
+            Assert.AreEqual("1-question-23945316", obj.Action);
+            Assert.AreEqual(23945316, response.PostId);
+            Assert.AreEqual(23945420, response.AnswerId);
+            Assert.AreEqual(1274102, response.AccountId);
         }
 
         [Ignore]
