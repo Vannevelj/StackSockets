@@ -3,7 +3,7 @@ using Library;
 using Library.Requests;
 using Library.Responses;
 
-namespace Console
+namespace ConsoleApplication
 {
     internal class Program
     {
@@ -13,7 +13,7 @@ namespace Console
             NewestQuestionsByTag();
             //QuestionActivity();
 
-            System.Console.ReadKey();
+            Console.ReadKey();
         }
 
         #region ActiveQuestions
@@ -39,12 +39,12 @@ namespace Console
                 return;
             }
 
-            System.Console.WriteLine("{0} - {1}", "Title", data.TitleEncodedFancy);
-            System.Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
-            System.Console.WriteLine("{0} - {1}", "Last activity", data.LastActivityDate);
-            System.Console.WriteLine("{0}", data.ApiSiteParameter);
-            System.Console.WriteLine(data.QuestionUrl);
-            System.Console.WriteLine();
+            Console.WriteLine("{0} - {1}", "Title", data.TitleEncodedFancy);
+            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
+            Console.WriteLine("{0} - {1}", "Last activity", data.LastActivityDate);
+            Console.WriteLine("{0} - {1}", "API site parameter", data.ApiSiteParameter);
+            Console.WriteLine("{0} - {1}", "Question URL", data.QuestionUrl);
+            Console.WriteLine();
         }
 
         #endregion
@@ -73,12 +73,12 @@ namespace Console
                 return;
             }
 
-            System.Console.WriteLine("{0} - {1}", "Title", data.Body);
-            System.Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
-            System.Console.WriteLine("{0} - {1}", "ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Site ID", data.SiteId);
-            System.Console.WriteLine(data.Fetch);
-            System.Console.WriteLine();
+            Console.WriteLine("{0} - {1}", "Body", data.Body);
+            Console.WriteLine("{0} - {1}", "Tags", string.Join(", ", data.Tags));
+            Console.WriteLine("{0} - {1}", "ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Site ID", data.SiteId);
+            Console.WriteLine("{0} - {1}", "Fetch", data.Fetch);
+            Console.WriteLine();
         }
 
         #endregion
@@ -112,11 +112,11 @@ namespace Console
                 throw new Exception("answerunaccepted");
             }
 
-            System.Console.WriteLine("Answer Unaccepted");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
-            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-            System.Console.WriteLine();
+            Console.WriteLine("Answer Unaccepted");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            Console.WriteLine();
         }
 
         private static void OnQuestionActivityAnswerAccepted(object sender, SocketEventArgs e)
@@ -127,11 +127,11 @@ namespace Console
                 throw new Exception("answeraccepted");
             }
 
-            System.Console.WriteLine("Answer Accepted");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
-            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-            System.Console.WriteLine();
+            Console.WriteLine("Answer Accepted");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            Console.WriteLine();
         }
 
         private static void OnQuestionActivityAnswerAdded(object sender, SocketEventArgs e)
@@ -142,11 +142,11 @@ namespace Console
                 throw new Exception("answeradded");
             }
 
-            System.Console.WriteLine("Answer added");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
-            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-            System.Console.WriteLine();
+            Console.WriteLine("Answer added");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Answer ID", data.AnswerId);
+            Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            Console.WriteLine();
         }
 
         private static void OnQuestionActivityCommentAdded(object sender, SocketEventArgs e)
@@ -157,11 +157,11 @@ namespace Console
                 throw new Exception("commentadded");
             }
 
-            System.Console.WriteLine("Comment Added");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
-            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-            System.Console.WriteLine();
+            Console.WriteLine("Comment Added");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Comment ID", data.CommentId);
+            Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            Console.WriteLine();
         }
 
         private static void OnQuestionActivityPostEdited(object sender, SocketEventArgs e)
@@ -172,10 +172,10 @@ namespace Console
                 throw new Exception("postedited");
             }
 
-            System.Console.WriteLine("Post Edited");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
-            System.Console.WriteLine();
+            Console.WriteLine("Post Edited");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Account ID", data.AccountId);
+            Console.WriteLine();
         }
 
         private static void OnQuestionActivityScoreChanged(object sender, SocketEventArgs e)
@@ -186,10 +186,10 @@ namespace Console
                 throw new Exception("scorechanged");
             }
 
-            System.Console.WriteLine("Score Changed");
-            System.Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
-            System.Console.WriteLine("{0} - {1}", "Score", data.Score);
-            System.Console.WriteLine();
+            Console.WriteLine("Score Changed");
+            Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
+            Console.WriteLine("{0} - {1}", "Score", data.Score);
+            Console.WriteLine();
         }
 
         #endregion

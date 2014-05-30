@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "StackSockets\Console.csproj", "{631E664E-FE53-4857-B6CA-8144EF4E06AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication", "StackSockets\ConsoleApplication.csproj", "{631E664E-FE53-4857-B6CA-8144EF4E06AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{7A4EB1A6-C25F-491D-ADDC-ADD6A8DAA005}"
 EndProject

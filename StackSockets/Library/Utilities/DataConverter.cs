@@ -8,7 +8,7 @@ namespace Library.Utilities
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof (Data);
+            return objectType == typeof (IData);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
@@ -16,7 +16,7 @@ namespace Library.Utilities
         {
             var value = reader.Value as string;
 
-            if (typeof (T) == typeof (QuestionActivityData))
+            if (typeof (T) == typeof (IQuestionActivityData))
             {
                 return GetSpecificQuestionActivity(value);
             }

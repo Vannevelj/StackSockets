@@ -79,7 +79,7 @@ namespace Library.Requests
 
         internal override JsonConverter ResponseDataType
         {
-            get { return new DataConverter<QuestionActivityData>(); }
+            get { return new DataConverter<IQuestionActivityData>(); }
         }
 
         internal override string GetRequestValue()

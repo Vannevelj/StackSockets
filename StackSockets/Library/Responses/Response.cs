@@ -12,15 +12,15 @@ namespace Library.Responses
         public string Action { get; internal set; }
 
         [JsonProperty("data")]
-        public Data Data { get; internal set; }
+        public IData Data { get; internal set; }
     }
 
-    public abstract class Data
+    public interface IData
     {
-        public abstract Activity Activity { get; }
+        Activity Activity { get; }
     }
 
-    public sealed class ActiveQuestionsData : Data
+    public sealed class ActiveQuestionsData : IData
     {
         [JsonProperty("siteBaseHostAddress")]
         public string SiteBaseHostAddress { get; internal set; }
@@ -55,13 +55,13 @@ namespace Library.Responses
         [JsonProperty("apiSiteParameter")]
         public string ApiSiteParameter { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.ActiveQuestions; }
         }
     }
 
-    public sealed class NewestQuestionsByTagData : Data
+    public sealed class NewestQuestionsByTagData : IData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -78,17 +78,17 @@ namespace Library.Responses
         [JsonProperty("fetch")]
         public bool Fetch { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.NewestQuestionsByTag; }
         }
     }
 
-    public abstract class QuestionActivityData : Data
+    public interface IQuestionActivityData : IData
     {
     }
 
-    public sealed class CommentAddedData : QuestionActivityData
+    public sealed class CommentAddedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -99,13 +99,13 @@ namespace Library.Responses
         [JsonProperty("acctid")]
         public int AccountId { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.CommentAdd; }
         }
     }
 
-    public sealed class PostEditedData : QuestionActivityData
+    public sealed class PostEditedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -113,13 +113,13 @@ namespace Library.Responses
         [JsonProperty("acctid")]
         public int AccountId { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.PostEdit; }
         }
     }
 
-    public sealed class ScoreChangedData : QuestionActivityData
+    public sealed class ScoreChangedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -127,13 +127,13 @@ namespace Library.Responses
         [JsonProperty("score")]
         public int Score { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.ScoreChange; }
         }
     }
 
-    public sealed class AnswerAddedData : QuestionActivityData
+    public sealed class AnswerAddedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -144,13 +144,13 @@ namespace Library.Responses
         [JsonProperty("acctid")]
         public int AccountId { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.AnswerAdd; }
         }
     }
 
-    public sealed class AnswerAcceptedData : QuestionActivityData
+    public sealed class AnswerAcceptedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -161,13 +161,13 @@ namespace Library.Responses
         [JsonProperty("acctid")]
         public int AccountId { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.AnswerAccept; }
         }
     }
 
-    public sealed class AnswerUnAcceptedData : QuestionActivityData
+    public sealed class AnswerUnAcceptedData : IQuestionActivityData
     {
         [JsonProperty("id")]
         public int PostId { get; internal set; }
@@ -178,7 +178,7 @@ namespace Library.Responses
         [JsonProperty("acctid")]
         public int AccountId { get; internal set; }
 
-        public override Activity Activity
+        public Activity Activity
         {
             get { return Activity.AnswerUnaccept; }
         }

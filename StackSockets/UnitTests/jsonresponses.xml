@@ -3,4 +3,39 @@
     <query>questions-active</query>
     <string> {"action":"155-questions-active","data":"{\"siteBaseHostAddress\":\"chinese.stackexchange.com\",\"id\":6977,\"titleEncodedFancy\":\"My patience is running out\",\"bodySummary\":\"How can I say my patience is wearing thin or my patience is running out?\",\"tags\":[\"translation\"],\"lastActivityDate\":1401243427,\"url\":\"http://chinese.stackexchange.com/questions/6977/my-patience-is-running-out\",\"ownerUrl\":\"http://chinese.stackexchange.com/users/2274/growler\",\"ownerDisplayName\":\"Growler\",\"apiSiteParameter\":\"chinese\"}"}</string>
   </response>
+
+  <response>
+    <query>questions-newest-tag</query>
+    <string>{"action":"1-questions-newest-tag-java","data":"{\"id\":\"23943937\",\"body\":\"snipped body\",\"tags\":[\"java\",\"json\",\"gson\"],\"siteid\":1,\"fetch\":false}"}</string>
+  </response>
+
+  <response>
+    <query>question-post-edit</query>
+    <string>{"action":"1-question-23943956","data":"{\"a\":\"post-edit\",\"id\":23944022,\"acctid\":215377}"}</string>
+  </response>
+
+  <response>
+    <query>question-comment-add</query>
+    <string>{"action":"1-question-23943956","data":"{\"a\":\"comment-add\",\"id\":23944022,\"commentid\":36882693,\"acctid\":215389}"}</string>
+  </response>
+
+  <response>
+    <query>question-score-change</query>
+    <string> {"action":"1-question-23943956","data":"{\"a\":\"score\",\"id\":23944023,\"score\":1}"}</string>
+  </response>
+
+  <response>
+    <query>question-answer-add</query>
+    <string> {"action":"1-question-23945234","data":"{\"a\":\"answer-add\",\"id\":23945234,\"answerid\":23945257,\"acctid\":1888343}"}</string>
+  </response>
+
+  <response>
+    <query>question-accept</query>
+    <string></string>
+  </response>
+
+  <response>
+    <query>question-unaccept</query>
+    <string></string>
+  </response>
 </data>
