@@ -10,7 +10,8 @@
         NewestQuestionsByTag,
         AnswerAccept,
         AnswerUnaccept,
-        DashboardActivity
+        DashboardActivity,
+        Reputation
     }
 
     public enum ReviewQueue
@@ -19,6 +20,7 @@
         CloseVotes = 2,
         LowQualityPosts = 3,
         FirstPosts = 4,
-        LateAnswers = 5
+        LateAnswers = 5,
+        Reopen = 6
     }
 }

@@ -26,7 +26,7 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void DataConverter_CanParse_QuestionsActive()
+        public void DataConverter_CanParse_ActiveQuestions()
         {
             var obj = JsonConvert.DeserializeObject<Response>(GetResponseFromXml("questions-active"),
                 new DataConverter<ActiveQuestionsData>());
@@ -51,7 +51,7 @@ namespace UnitTests
 
         // Tests the body with a snipped version: the actual response contains many HTML tags, newlines and escape characters
         [TestMethod]
-        public void DataConverter_CanParse_QuestionsNewestTag()
+        public void DataConverter_CanParse_NewestQuestionsByTag()
         {
             var obj = JsonConvert.DeserializeObject<Response>(GetResponseFromXml("questions-newest-tag"),
                 new DataConverter<NewestQuestionsByTagData>());
@@ -162,6 +162,17 @@ namespace UnitTests
             Assert.AreEqual(ReviewQueue.LateAnswers, response.ReviewType);
             Assert.AreEqual(3305005, response.UserId);
             Assert.AreEqual("snipped some html", response.HtmlBody);
+        }
+
+        [TestMethod]
+        public void DataConverter_CanParse_Reputation()
+        {
+            var obj = JsonConvert.DeserializeObject<Response>(GetResponseFromXml("reputation"),
+                new DataConverter<ReputationData>());
+            var response = obj.Data as ReputationData;
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual(679081, response.Reputation);
         }
     }
 

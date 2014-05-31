@@ -200,4 +200,15 @@ namespace Library.Responses
             get { return Activity.DashboardActivity; }
         }
     }
+
+    public sealed class ReputationData : IData
+    {
+        [JsonProperty("data")]
+        public int Reputation { get; internal set; }
+
+        public Activity Activity
+        {
+            get { return Activity.Reputation; }
+        }
+    }
 }

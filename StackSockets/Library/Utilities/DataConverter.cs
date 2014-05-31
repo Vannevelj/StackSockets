@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Library.Responses;
 using Newtonsoft.Json;
 
@@ -19,6 +20,14 @@ namespace Library.Utilities
             if (typeof (T) == typeof (IQuestionActivityData))
             {
                 return GetSpecificQuestionActivity(value);
+            }
+
+            if (typeof (T) == typeof (ReputationData))
+            {
+                return new ReputationData
+                {
+                    Reputation = int.Parse(value, NumberStyles.AllowThousands, CultureInfo.InvariantCulture)
+                };
             }
 
             return JsonConvert.DeserializeObject<T>(value);

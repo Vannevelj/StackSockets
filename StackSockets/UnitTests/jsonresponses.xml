@@ -41,8 +41,11 @@
 
   <response>
     <query>review-dashboard-update</query>
-    <string>
-      {"action":"1-review-dashboard-update","data":"{\"i\":5,\"u\":3305005,\"html\":\"snipped some html\"}"}
-    </string>
+    <string>{"action":"1-review-dashboard-update","data":"{\"i\":5,\"u\":3305005,\"html\":\"snipped some html\"}"}</string>
+  </response>
+
+  <response>
+    <query>reputation</query>
+    <string>{"action":"1-22656-reputation","data":"679,081"}</string>
   </response>
 </data>

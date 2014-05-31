@@ -163,4 +163,30 @@ namespace Library.Requests
             return SiteId + "-review-dashboard-update";
         }
     }
+
+    public sealed class ReputationRequestParameters : RequestParameters
+    {
+        public event EventHandler<SocketEventArgs> OnReputationChange;
+
+        public int SiteId { get; set; }
+        public int UserId { get; set; }
+
+        internal override JsonConverter ResponseDataType
+        {
+            get { return new DataConverter<ReputationData>(); }
+        }
+
+        internal override void FireEvent(object sender, SocketEventArgs e)
+        {
+            if (OnReputationChange != null)
+            {
+                OnReputationChange(sender, e);
+            }
+        }
+
+        internal override string GetRequestValue()
+        {
+            return SiteId + "-" + UserId + "-reputation";
+        }
+    }
 }
