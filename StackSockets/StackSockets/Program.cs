@@ -12,7 +12,9 @@ namespace ConsoleApplication
             //ActiveQuestions();
             //NewestQuestionsByTag();
             //QuestionActivity();
-            ReviewActivity();
+            //ReviewActivity();
+            ReputationChanges();
+
 
             Console.ReadKey();
         }
@@ -225,5 +227,31 @@ namespace ConsoleApplication
         }
 
         #endregion
+
+        private static void ReputationChanges()
+        {
+            var settings = new ReputationRequestParameters
+            {
+                SiteId = 1,
+                UserId = 22656
+            };
+
+            settings.OnReputationChange += OnReputationChangeDataReceived;
+
+            var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
+            socket.Connect();
+        }
+
+        private static void OnReputationChangeDataReceived(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as ReputationData;
+            if (data == null)
+            {
+                throw new Exception("reputation change");
+            }
+
+            Console.WriteLine("{0} - {1}", "Reputation", data.Reputation);
+            Console.WriteLine();
+        }
     }
 }
