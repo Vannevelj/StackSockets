@@ -183,4 +183,21 @@ namespace Library.Responses
             get { return Activity.AnswerUnaccept; }
         }
     }
+
+    public sealed class ReviewDashboardActivityData : IData
+    {
+        [JsonProperty("i")]
+        public ReviewQueue ReviewType { get; internal set; }
+
+        [JsonProperty("u")]
+        public int UserId { get; internal set; }
+
+        [JsonProperty("html")]
+        public string HtmlBody { get; internal set; }
+
+        public Activity Activity
+        {
+            get { return Activity.DashboardActivity; }
+        }
+    }
 }

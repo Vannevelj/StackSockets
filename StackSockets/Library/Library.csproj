@@ -52,7 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Requests\Activity.cs" />
+    <Compile Include="Requests\enums.cs" />
     <Compile Include="Requests\RequestParameters.cs" />
     <Compile Include="Responses\Response.cs" />
     <Compile Include="StackSocket.cs" />

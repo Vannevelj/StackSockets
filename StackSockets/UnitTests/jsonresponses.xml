@@ -38,4 +38,11 @@
     <query>question-unaccept</query>
     <string></string>
   </response>
+
+  <response>
+    <query>review-dashboard-update</query>
+    <string>
+      {"action":"1-review-dashboard-update","data":"{\"i\":5,\"u\":3305005,\"html\":\"snipped some html\"}"}
+    </string>
+  </response>
 </data>

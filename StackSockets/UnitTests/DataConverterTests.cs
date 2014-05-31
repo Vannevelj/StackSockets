@@ -149,6 +149,20 @@ namespace UnitTests
             Assert.AreEqual(0, response.AnswerId);
             Assert.AreEqual(0, response.AccountId);
         }
+
+        [TestMethod]
+        public void DataConverter_CanParse_ReviewActivity()
+        {
+            var obj = JsonConvert.DeserializeObject<Response>(GetResponseFromXml("review-dashboard-update"),
+                new DataConverter<ReviewDashboardActivityData>());
+            var response = obj.Data as ReviewDashboardActivityData;
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual("1-review-dashboard-update", obj.Action);
+            Assert.AreEqual(ReviewQueue.LateAnswers, response.ReviewType);
+            Assert.AreEqual(3305005, response.UserId);
+            Assert.AreEqual("snipped some html", response.HtmlBody);
+        }
     }
 
     // ReSharper restore PossibleNullReferenceException

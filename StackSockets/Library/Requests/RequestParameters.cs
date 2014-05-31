@@ -138,4 +138,29 @@ namespace Library.Requests
             }
         }
     }
+
+    public sealed class ReviewDashboardActivityRequestParameters : RequestParameters
+    {
+        public event EventHandler<SocketEventArgs> OnReviewActivity;
+
+        public int SiteId { get; set; }
+
+        internal override JsonConverter ResponseDataType
+        {
+            get { return new DataConverter<ReviewDashboardActivityData>(); }
+        }
+
+        internal override void FireEvent(object sender, SocketEventArgs e)
+        {
+            if (OnReviewActivity != null)
+            {
+                OnReviewActivity(sender, e);
+            }
+        }
+
+        internal override string GetRequestValue()
+        {
+            return SiteId + "-review-dashboard-update";
+        }
+    }
 }

@@ -10,8 +10,9 @@ namespace ConsoleApplication
         private static void Main(string[] args)
         {
             //ActiveQuestions();
-            NewestQuestionsByTag();
+            //NewestQuestionsByTag();
             //QuestionActivity();
+            ReviewActivity();
 
             Console.ReadKey();
         }
@@ -36,7 +37,7 @@ namespace ConsoleApplication
             var data = e.Response.Data as ActiveQuestionsData;
             if (data == null)
             {
-                return;
+                throw new Exception("active questions");
             }
 
             Console.WriteLine("{0} - {1}", "Title", data.TitleEncodedFancy);
@@ -70,7 +71,7 @@ namespace ConsoleApplication
             var data = e.Response.Data as NewestQuestionsByTagData;
             if (data == null)
             {
-                return;
+                throw new Exception("newest questions by tag");
             }
 
             Console.WriteLine("{0} - {1}", "Body", data.Body);
@@ -189,6 +190,37 @@ namespace ConsoleApplication
             Console.WriteLine("Score Changed");
             Console.WriteLine("{0} - {1}", "Post ID", data.PostId);
             Console.WriteLine("{0} - {1}", "Score", data.Score);
+            Console.WriteLine();
+        }
+
+        #endregion
+
+        #region ReviewActivity
+
+        private static void ReviewActivity()
+        {
+            var settings = new ReviewDashboardActivityRequestParameters
+            {
+                SiteId = 1
+            };
+
+            settings.OnReviewActivity += OnReviewActivityDataReceived;
+
+            var socket = new StackSocket("wss://qa.sockets.stackexchange.com", settings);
+            socket.Connect();
+        }
+
+        private static void OnReviewActivityDataReceived(object sender, SocketEventArgs e)
+        {
+            var data = e.Response.Data as ReviewDashboardActivityData;
+            if (data == null)
+            {
+                throw new Exception("review activity");
+            }
+
+            Console.WriteLine("{0} - {1}", "User ID", data.UserId);
+            Console.WriteLine("{0} - {1}", "Review Type", data.ReviewType);
+            Console.WriteLine("{0} - {1}", "Body", data.HtmlBody);
             Console.WriteLine();
         }
 
